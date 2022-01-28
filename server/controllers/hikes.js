@@ -8,8 +8,8 @@ exports.getHike = async (req, res, next) => {
     const hike = await Hike.findById(req.params.id);
 
     return res.status(200).json(hike);
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
     return res.status(500).json({
       success: false,
       error: "Server Error",
@@ -29,7 +29,7 @@ exports.getHikes = async (req, res, next) => {
       count: hikes.length,
       data: hikes,
     });
-  } catch (err) {
+  } catch (error) {
     console.log(error);
     return res.status(500).json({
       success: false,
@@ -72,9 +72,9 @@ exports.addHike = async (req, res, next) => {
       success: true,
       data: hike,
     });
-  } catch (err) {
-    if (err.name === "ValidationError") {
-      const messages = Object.values(err.errors).map((val) => val.message);
+  } catch (error) {
+    if (error.name === "ValidationError") {
+      const messages = Object.values(error.errors).map((val) => val.message);
       console.log(error);
       return res.status(400).json({
         success: false,
@@ -84,7 +84,7 @@ exports.addHike = async (req, res, next) => {
       console.log(error);
       return res.status(500).json({
         success: false,
-        error: `Server Error: ${err}`,
+        error: `Server Error: ${error}`,
       });
     }
   }
@@ -110,7 +110,7 @@ exports.deleteHike = async (req, res, next) => {
       success: true,
       data: hike,
     });
-  } catch (err) {
+  } catch (error) {
     console.log(error);
     return res.status(500).json({
       success: false,
@@ -130,7 +130,7 @@ exports.deleteAllHikes = async (req, res, next) => {
       success: true,
       data: {},
     });
-  } catch (err) {
+  } catch (error) {
     console.log(error);
     return res.status(500).json({
       success: false,

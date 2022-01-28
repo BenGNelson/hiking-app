@@ -56,7 +56,7 @@ const AddHike = (props) => {
       <VStack align="left" spacing="30px">
         <Box>
           <FormLabel htmlFor="hike name" m={0}>
-            Name of Like
+            Name of Hike
           </FormLabel>
           <Input
             placeholder="Hike to Timbuktu"
