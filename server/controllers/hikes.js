@@ -5,7 +5,7 @@ const Hike = require("../models/Hike");
 // @access  Public
 exports.getHikes = async (req, res, next) => {
   try {
-    const hikes = await Hike.find().sort({createdAt: -1});
+    const hikes = await Hike.find().sort({ createdAt: -1 });
 
     return res.status(200).json({
       success: true,
@@ -26,8 +26,6 @@ exports.getHikes = async (req, res, next) => {
 exports.addHike = async (req, res, next) => {
   try {
     const { hikeName, hikeLength, hikeRating } = req.body;
-    console.log(req.body);
-
 
     if (!hikeName) {
       return res.status(400).json({
@@ -87,7 +85,7 @@ exports.deleteHike = async (req, res, next) => {
       });
     }
 
-    await BlockModel.deleteMany({})
+    await BlockModel.deleteMany({});
 
     return res.status(200).json({
       success: true,
