@@ -3,6 +3,23 @@ const Hike = require("../models/Hike");
 // @desc    Get all hikes
 // @route   GET /api/v1/hikes
 // @access  Public
+exports.getHike = async (req, res, next) => {
+  try {
+    const hike = await Hike.findById(req.params.id);
+
+    return res.status(200).json(hike);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      success: false,
+      error: "Server Error",
+    });
+  }
+};
+
+// @desc    Get all hikes
+// @route   GET /api/v1/hikes
+// @access  Public
 exports.getHikes = async (req, res, next) => {
   try {
     const hikes = await Hike.find().sort({ createdAt: -1 });
@@ -13,6 +30,7 @@ exports.getHikes = async (req, res, next) => {
       data: hikes,
     });
   } catch (err) {
+    console.log(error);
     return res.status(500).json({
       success: false,
       error: "Server Error",
@@ -57,12 +75,13 @@ exports.addHike = async (req, res, next) => {
   } catch (err) {
     if (err.name === "ValidationError") {
       const messages = Object.values(err.errors).map((val) => val.message);
-
+      console.log(error);
       return res.status(400).json({
         success: false,
         error: messages,
       });
     } else {
+      console.log(error);
       return res.status(500).json({
         success: false,
         error: `Server Error: ${err}`,
@@ -85,13 +104,14 @@ exports.deleteHike = async (req, res, next) => {
       });
     }
 
-    await BlockModel.deleteMany({});
+    await hike.remove();
 
     return res.status(200).json({
       success: true,
-      data: {},
+      data: hike,
     });
   } catch (err) {
+    console.log(error);
     return res.status(500).json({
       success: false,
       error: "Server Error",
@@ -111,6 +131,7 @@ exports.deleteAllHikes = async (req, res, next) => {
       data: {},
     });
   } catch (err) {
+    console.log(error);
     return res.status(500).json({
       success: false,
       error: "Server Error",

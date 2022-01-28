@@ -21,7 +21,7 @@ const AddHike = (props) => {
   const addUserHandler = async (event) => {
     event.preventDefault();
     try {
-      await sendRequest(
+      const res = await sendRequest(
         `${apiBaseRoute}/api/v1/hikes`,
         "POST",
         JSON.stringify({
@@ -35,6 +35,7 @@ const AddHike = (props) => {
       setenteredHikeName("");
       setenteredHikeLength("");
       setenteredHikeRating("");
+      props.onAddHike(res.data);
     } catch (err) {}
   };
 

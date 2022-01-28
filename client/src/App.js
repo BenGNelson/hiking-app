@@ -14,6 +14,12 @@ const App = () => {
         <Route path="/" exact>
           <Hikes />
         </Route>
+        <Route path="/hikes" exact>
+          <Hikes />
+        </Route>
+        <Route path="/hikes/:id">
+          <Hikes />
+        </Route>
         <Redirect to="/" />
       </Switch>
     </Router>

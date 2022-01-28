@@ -1,13 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { getHikes, addHike, deleteHike, deleteAllHikes } = require("../controllers/hikes");
+const { getHike, getHikes, addHike, deleteHike, deleteAllHikes } = require("../controllers/hikes");
 
 router.route("/").get(getHikes).post(addHike);
 
-router.route("/:id").delete(deleteHike);
-
 router.route("/").delete(deleteAllHikes);
 
-
+router.route("/:id").get(getHike).delete(deleteHike);
 
 module.exports = router;

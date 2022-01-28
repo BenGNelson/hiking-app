@@ -26,6 +26,18 @@ const Hikes = (props) => {
     fetchHikes();
   }, [isLoaded, sendRequest]);
 
+  const addHikeHandler = (hike) => {
+        setHikes([hike, ...hikes]);
+        setIsLoaded(true);
+        console.log(hikes);
+  };
+
+  const hikeDeletedHandler = (deletedHike) => {
+    setHikes((prevHikes) =>
+      prevHikes.filter((hike) => hike._id !== deletedHike._id)
+    );
+  };
+
   if (error) {
     return <Box>Error: {error.message}</Box>;
   } else if (!isLoaded) {
@@ -45,8 +57,8 @@ const Hikes = (props) => {
           <Navbar />
         </Container>
         <Container maxW="container.md" py={5}>
-          <AddHike />
-          <HikesList hikes={hikes} />
+          <AddHike onAddHike={addHikeHandler} />
+          <HikesList hikes={hikes} onDeleteHike={hikeDeletedHandler}/>
         </Container>
       </ChakraProvider>
     );
