@@ -1,17 +1,34 @@
 import React, { useState } from "react";
 import { FormControl, Input, Button, FormLabel, VStack, Box } from '@chakra-ui/react';
 
+import { useHttpClient } from '../../shared/hooks/http-hook'
+
 const AddHike = (props) => {
   const [enteredHikeName, setenteredHikeName] = useState("");
   const [enteredHikeLength, setenteredHikeLength] = useState("");
   const [enteredHikeRating, setenteredHikeRating] = useState("");
+  const { sendRequest } = useHttpClient();
 
-  const addUserHandler = (event) => {
+  const apiBaseRoute = "http://localhost:5000"
+
+  const addUserHandler = async (event) => {
     event.preventDefault();
-    props.onAddHike(enteredHikeName, enteredHikeLength, enteredHikeRating);
-    setenteredHikeName("");
-    setenteredHikeLength("");
-    setenteredHikeRating("");
+    try {
+      await sendRequest(
+        `${apiBaseRoute}/api/v1/hikes`,
+        "POST",
+        JSON.stringify({
+          hikeName: enteredHikeName,
+          hikeLength: enteredHikeLength,
+          hikeRating: enteredHikeRating,
+        }),
+        {"Content-Type": "application/json"}
+      );
+
+      setenteredHikeName("");
+      setenteredHikeLength("");
+      setenteredHikeRating("");
+    } catch (err) {}
   };
 
   const hikeNameChangedHandler = (event) => {

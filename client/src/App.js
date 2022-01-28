@@ -1,39 +1,34 @@
 import { React, useState, useEffect } from "react";
 import { ChakraProvider, Container, Box } from '@chakra-ui/react'
-import axios from 'axios';
 
-import AddHike from './Components/hikes/AddHike';
-import HikesList from "./Components/hikes/HikesList";
+import { useHttpClient } from './shared/hooks/http-hook';
+
+import AddHike from './components/hikes/AddHike';
+import HikesList from "./components/hikes/HikesList";
 import Navbar from './ui/Navbar'
+
 
 const App = () => {
   const [hikes, setHikes] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
+  const { sendRequest } = useHttpClient();
 
-  const apiBaseRoute = "/api/v1"
-
-  const addHikeHandler = (hikeName, hikeLength, hikeRating) => {
-    axios.post(`http://localhost:5000/api/v1/hikes`, {
-        hikeName: hikeName,
-        hikeLength: hikeLength,
-        hikeRating: hikeRating
-      })
-      .then(res => {
-        setHikes([res.data.data, ...hikes])
-        setIsLoaded(true);
-        console.log(hikes);
-      })
-  };
+  const apiBaseRoute = "http://localhost:5000"
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/v1/hikes`)
-    .then(res => {
-      const hikes = res.data;
-      setIsLoaded(true);
-      setHikes(hikes.data);
-    })
-  }, [])
+    const fetchHikes = async () => {
+      try {
+        const res = await sendRequest(
+          `${apiBaseRoute}/api/v1/hikes`
+        );
+
+        setHikes(res.data)
+        setIsLoaded(true);
+      } catch (err) {}
+    };
+    fetchHikes();
+  }, [sendRequest]);
 
   if (error) {
     return <Box>Error: {error.message}</Box>;
@@ -44,7 +39,7 @@ const App = () => {
         <Navbar />
       </Container>
       <Container maxW='container.md' py={5}>
-        <AddHike onAddHike={addHikeHandler} />
+        <AddHike />
         <Box>Loading...</Box>
       </Container>
     </ChakraProvider>);
@@ -55,7 +50,7 @@ const App = () => {
         <Navbar />
       </Container>
       <Container maxW='container.md' py={5}>
-        <AddHike onAddHike={addHikeHandler} />
+        <AddHike />
         <HikesList hikes={hikes} />
       </Container>
     </ChakraProvider>
