@@ -18,7 +18,7 @@ const Navbar = () => {
       <Flex>
         <Box p="2">
           <Link href="/" style={{ textDecoration: "none" }}>
-            <Heading size="md">Hiking App</Heading>
+            <Heading size="lg">Hiking App</Heading>
           </Link>
         </Box>
         <Spacer />

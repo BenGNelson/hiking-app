@@ -52,10 +52,10 @@ exports.addHike = async (req, res, next) => {
       });
     }
 
-    if (hikeLength < 0) {
+    if (hikeLength < 0 || hikeLength > 99) {
       return res.status(400).json({
         success: false,
-        error: "Length must be greater than 0",
+        error: "Length must be greater than 0 and less than 99",
       });
     }
 

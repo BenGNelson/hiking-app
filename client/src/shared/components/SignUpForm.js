@@ -8,8 +8,6 @@ import {
   FormLabel,
   Alert,
   AlertIcon,
-  InputGroup,
-  InputRightElement,
 } from "@chakra-ui/react";
 
 const LoginForm = (props) => {
