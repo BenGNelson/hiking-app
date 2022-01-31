@@ -5,8 +5,8 @@ const User = require("../models/User");
 // @access  Public
 exports.getUser = async (req, res, next) => {
   try {
-    const user = await User.findOne({ username: req.params.username});
-    console.log(user)
+    const user = await User.findOne({ username: req.params.username });
+    console.log(user);
 
     return res.status(200).json(user);
   } catch (error) {
@@ -49,7 +49,7 @@ exports.addUser = async (req, res, next) => {
     if (!username) {
       return res.status(400).json({
         success: false,
-        error: "Hike must have a name",
+        error: "Please enter a username",
       });
     }
 

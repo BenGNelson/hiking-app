@@ -8,7 +8,12 @@ import {
   FormLabel,
   Alert,
   AlertIcon,
+  InputRightElement,
+  InputGroup,
 } from "@chakra-ui/react";
+import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
+
+import { getUserByName } from "../../services/UserService";
 
 const LoginForm = (props) => {
   const [enteredUsername, setenteredUsername] = useState("");
@@ -16,6 +21,7 @@ const LoginForm = (props) => {
   const [enteredConfirmedPassword, setEnteredenteredConfirmedPassword] =
     useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [isValidUser, setIsValidUser] = useState(false);
 
   const signupHandler = async (event) => {
     event.preventDefault();
@@ -34,7 +40,7 @@ const LoginForm = (props) => {
       return;
     }
 
-     try {
+    try {
       props.onSignup(enteredUsername, enteredPassword);
     } catch (error) {
       console.log(error);
@@ -46,8 +52,20 @@ const LoginForm = (props) => {
     // setErrorMsg("");
   };
 
-  const usernameChangedHandler = (event) => {
-    setenteredUsername(event.target.value);
+  const usernameChangedHandler = async (event) => {
+    const value = event.target.value;
+    setenteredUsername(value);
+    try {
+      const res = await getUserByName(value);
+      if (!res && value.length > 2) {
+        setIsValidUser(true);
+      } else {
+        setIsValidUser(false);
+      }
+    } catch (error) {
+      setIsValidUser(false);
+      console.log(error);
+    }
   };
 
   const passwordChangedHandler = (event) => {
@@ -65,14 +83,25 @@ const LoginForm = (props) => {
           <FormLabel htmlFor="signup" mb={2}>
             Sign Up
           </FormLabel>
-          <Input
-            id="username"
-            type="text"
-            placeholder="Username"
-            size="md"
-            onChange={usernameChangedHandler}
-            value={enteredUsername}
-          />
+          <InputGroup>
+            <Input
+              id="username"
+              type="text"
+              placeholder="Username"
+              size="md"
+              onChange={usernameChangedHandler}
+              value={enteredUsername}
+            />
+            <InputRightElement
+              children={
+                isValidUser ? (
+                  <CheckIcon color="green.500" />
+                ) : (
+                  <CloseIcon color="red.500" />
+                )
+              }
+            />
+          </InputGroup>
         </Box>
         <Box>
           <Input

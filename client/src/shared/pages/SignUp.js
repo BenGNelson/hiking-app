@@ -8,7 +8,6 @@ const Signup = (props) => {
   const [errorMsg, setErrorMsg] = useState(null);
 
   const checkUserExists = async (username) => {
-    console.log('In check user: ' + username);
     try {
       return await getUserByName(username);
     } catch (error) {
