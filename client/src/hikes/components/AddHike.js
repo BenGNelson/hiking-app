@@ -72,7 +72,7 @@ const AddHike = (props) => {
             value={enteredHikeRating}
           />
         </Box>
-        <Button colorScheme="teal" onClick={addUserHandler}>
+        <Button colorScheme="purple" onClick={addUserHandler}>
           Submit
         </Button>
       </VStack>

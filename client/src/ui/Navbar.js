@@ -17,23 +17,23 @@ const Navbar = () => {
     <Container maxW="container.xl" py={4}>
       <Flex>
         <Box p="2">
-          <Link href="/" style={{ textDecoration: "none" }} passHref>
+          <Link href="/" style={{ textDecoration: "none" }}>
             <Heading size="md">Hiking App</Heading>
           </Link>
         </Box>
         <Spacer />
         <Box>
-          <Link href="/hikes" style={{ textDecoration: "none" }} passHref>
+          <Link href="/hikes" style={{ textDecoration: "none" }}>
             <Button rightIcon={<FaMountain />} colorScheme="purple" mr="4">
               Your Hikes
             </Button>
           </Link>
-          <Link href="/hikes" style={{ textDecoration: "none" }} passHref>
+          <Link href="/signup" style={{ textDecoration: "none" }}>
             <Button rightIcon={<BsPlusLg />} colorScheme="orange" mr="4">
               Sign Up
             </Button>
           </Link>
-          <Link href="/login" style={{ textDecoration: "none" }} passHref>
+          <Link href="/login" style={{ textDecoration: "none" }}>
             <Button rightIcon={<MdLogin />} colorScheme="teal">
               Log in
             </Button>

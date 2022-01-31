@@ -4,17 +4,15 @@ import { ChakraProvider, Container, Box } from "@chakra-ui/react";
 import AddHike from "../components/AddHike";
 import HikesList from "../components/UserHikesList";
 import { getAllHikes, addHike, deleteHike } from "../HikeService";
-import { useHttpClient } from "../../shared/hooks/http-hook";
 
 const Hikes = (props) => {
   const [userHikes, setHikes] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
-  const { sendRequest } = useHttpClient();
 
   useEffect(() => {
     getHikes();
-  }, [isLoaded, sendRequest]);
+  }, [isLoaded]);
 
   const getHikes = async () => {
     try {

@@ -1,17 +1,17 @@
 import { React } from "react";
 import { ChakraProvider, Container } from "@chakra-ui/react";
 
-import LoginForm from "../../shared/components/LoginForm";
+import SignUpForm from "../components/SignUpForm";
 
-const Login = (props) => {
+const Signup = (props) => {
 
     return (
       <ChakraProvider>
         <Container maxW="container.md" py={5}>
-          <LoginForm />
+          <SignUpForm />
         </Container>
       </ChakraProvider>
     );
 };
 
-export default Login;
+export default Signup;
