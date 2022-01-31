@@ -5,20 +5,20 @@ import {
   Redirect,
   Switch,
 } from "react-router-dom";
-import Hikes from "./hikes/pages/Hikes";
+import UserHikes from "./hikes/pages/UserHikes";
 
 const App = () => {
   return (
     <Router>
       <Switch>
         <Route path="/" exact>
-          <Hikes />
+          <UserHikes />
         </Route>
         <Route path="/hikes" exact>
-          <Hikes />
+          <UserHikes />
         </Route>
         <Route path="/hikes/:id">
-          <Hikes />
+          <UserHikes />
         </Route>
         <Redirect to="/" />
       </Switch>

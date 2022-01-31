@@ -4,6 +4,7 @@ import { ChakraProvider, Container, Box } from "@chakra-ui/react";
 import Navbar from "../../ui/Navbar";
 import AddHike from "../components/AddHike";
 import HikesList from "../components/HikesList";
+import { getAllHikes, addHike, deleteHike } from "../HikeService";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 
 const Hikes = (props) => {
@@ -12,43 +13,42 @@ const Hikes = (props) => {
   const [error, setError] = useState(null);
   const { sendRequest } = useHttpClient();
 
-  const apiBaseRoute = "http://localhost:5000";
-
   useEffect(() => {
-    const fetchHikes = async () => {
-      try {
-        const res = await sendRequest(`${apiBaseRoute}/api/v1/hikes`);
-
-        setHikes(res.data);
-        setIsLoaded(true);
-      } catch (error) {
-        setError(error);
-        console.log(error);
-      }
-    };
-    fetchHikes();
+    getHikes();
   }, [isLoaded, sendRequest]);
 
-  const addHikeHandler = (hike) => {
-    setHikes([hike, ...hikes]);
-    setIsLoaded(true);
+  const getHikes = async () => {
+    try {
+      const res = await getAllHikes();
+      setHikes(res.data);
+      setIsLoaded(true);
+    } catch (error) {
+      setError(setError);
+    }
+  };
+
+  const addHikeHandler = async (hikeName, hikeLength, hikeRating) => {
+    try {
+      const res = await addHike(hikeName, hikeLength, hikeRating);
+      setHikes([res.data, ...hikes]);
+      setIsLoaded(true);
+    } catch (error) {
+      setError(setError);
+    }
   };
 
   const hikeDeletedHandler = async (deletedHike) => {
     try {
-      await sendRequest(
-        `${apiBaseRoute}/api/v1/hikes/${deletedHike._id}`,
-        "DELETE",
-        null
-      );
-    } catch (err) {
-      console.log(err);
-      setError(error);
+      const res = await deleteHike(deletedHike);
+      if (res.success) {
+        setHikes((prevHikes) =>
+          prevHikes.filter((hike) => hike._id !== deletedHike._id)
+        );
+        setIsLoaded(true);
+      }
+    } catch (error) {
+      setError(setError);
     }
-    setHikes((prevHikes) =>
-      prevHikes.filter((hike) => hike._id !== deletedHike._id)
-    );
-    setIsLoaded(true);
   };
 
   if (error) {
