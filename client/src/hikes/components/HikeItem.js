@@ -15,10 +15,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
-import { useHttpClient } from "../../shared/hooks/http-hook";
-
 const HikeItem = (props) => {
-  const { sendRequest } = useHttpClient();
   const {
     isOpen: isOpenDeleteConfirmModal,
     onOpen: onOpenReportModal,
@@ -26,7 +23,6 @@ const HikeItem = (props) => {
   } = useDisclosure();
 
   const hike = props.hike;
-  const apiBaseRoute = "http://localhost:5000";
 
   const confirmDeleteHandler = async (event) => {
     event.preventDefault();
@@ -53,7 +49,7 @@ const HikeItem = (props) => {
           <Modal isOpen={isOpenDeleteConfirmModal} onClose={onCloseReportModal}>
             <ModalOverlay />
             <ModalContent>
-              <ModalHeader>Modal Title</ModalHeader>
+              <ModalHeader>Delete the hike?</ModalHeader>
               <ModalCloseButton />
               <ModalFooter>
                 <Button colorScheme="blue" mr={3} onClick={onCloseReportModal}>

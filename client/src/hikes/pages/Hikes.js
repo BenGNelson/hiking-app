@@ -21,7 +21,9 @@ const Hikes = (props) => {
 
         setHikes(res.data);
         setIsLoaded(true);
-      } catch (err) {}
+      } catch (error) {
+        console.log(error);
+      }
     };
     fetchHikes();
   }, [isLoaded, sendRequest]);
@@ -29,7 +31,6 @@ const Hikes = (props) => {
   const addHikeHandler = (hike) => {
     setHikes([hike, ...hikes]);
     setIsLoaded(true);
-    console.log(hikes);
   };
 
   const hikeDeletedHandler = async (deletedHike) => {

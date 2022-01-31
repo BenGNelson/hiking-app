@@ -36,7 +36,9 @@ const AddHike = (props) => {
       setenteredHikeLength("");
       setenteredHikeRating("");
       props.onAddHike(res.data);
-    } catch (err) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const hikeNameChangedHandler = (event) => {

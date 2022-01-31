@@ -7,7 +7,7 @@ const HikesList = (props) => {
   return (
     <Box>
       {hikes.map((hike, index) => (
-        <HikeItem key={hike._id} hike={hike} onDelete={props.onDeleteHike}/>
+        <HikeItem key={hike._id} hike={hike} onDelete={props.onDeleteHike} />
       ))}
     </Box>
   );
