@@ -57,7 +57,7 @@ const LoginForm = (props) => {
       <VStack align="left" spacing="30px">
         <Box>
           <FormLabel htmlFor="signup" mb={2}>
-            Signup
+            Sign Up
           </FormLabel>
           <Input
             id="username"
