@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { ChakraProvider, Container, Box } from "@chakra-ui/react";
 
-import HikesList from "../components/UserHikesList";
+import HikesList from "../components/AllHikesList";
 import { getAllHikes } from "../HikeService";
 
 const Hikes = (props) => {
@@ -36,9 +36,7 @@ const Hikes = (props) => {
   } else {
     return (
       <ChakraProvider>
-        <Container maxW="container.xl" py={4}>
-        </Container>
-        <Container maxW="container.md" py={5}>
+        <Container maxW="container.sm" py={5}>
           <HikesList hikes={allHikes} />
         </Container>
       </ChakraProvider>

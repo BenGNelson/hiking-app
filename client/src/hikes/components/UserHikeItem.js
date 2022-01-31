@@ -15,7 +15,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
-const HikeItem = (props) => {
+const UserHikeItem = (props) => {
   const {
     isOpen: isOpenDeleteConfirmModal,
     onOpen: onOpenReportModal,
@@ -67,4 +67,4 @@ const HikeItem = (props) => {
   );
 };
 
-export default HikeItem;
+export default UserHikeItem;

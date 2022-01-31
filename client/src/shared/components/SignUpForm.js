@@ -5,18 +5,41 @@ import {
   Button,
   VStack,
   Box,
+  FormLabel,
+  Alert,
+  AlertIcon,
+  InputGroup,
+  InputRightElement,
 } from "@chakra-ui/react";
 
 const LoginForm = (props) => {
   const [enteredUsername, setenteredUsername] = useState("");
   const [enteredPassword, setenteredPassword] = useState("");
-  const [enteredConfirmedPassword, setenteredenteredConfirmedPassword] = useState("");
+  const [enteredConfirmedPassword, setEnteredenteredConfirmedPassword] =
+    useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const loginHandler = async (event) => {
+  const signupHandler = async (event) => {
     event.preventDefault();
+    if (enteredUsername.trim().length === 0) {
+      setErrorMsg("Please enter a username");
+      return;
+    }
+
+    if (enteredPassword.trim().length === 0) {
+      setErrorMsg("Please enter a password");
+      return;
+    }
+
+    if (enteredConfirmedPassword.trim().length === 0) {
+      setErrorMsg("Please confirm your password");
+      return;
+    }
 
     setenteredUsername("");
     setenteredPassword("");
+    setEnteredenteredConfirmedPassword("");
+    setErrorMsg("");
   };
 
   const usernameChangedHandler = (event) => {
@@ -28,14 +51,19 @@ const LoginForm = (props) => {
   };
 
   const passwordConfirmedChangedHandler = (event) => {
-    setenteredenteredConfirmedPassword(event.target.value);
+    setEnteredenteredConfirmedPassword(event.target.value);
   };
 
   return (
     <FormControl>
       <VStack align="left" spacing="30px">
         <Box>
+          <FormLabel htmlFor="signup" mb={2}>
+            Signup
+          </FormLabel>
           <Input
+            id="username"
+            type="text"
             placeholder="Username"
             size="md"
             onChange={usernameChangedHandler}
@@ -44,6 +72,8 @@ const LoginForm = (props) => {
         </Box>
         <Box>
           <Input
+            id="password"
+            type="password"
             placeholder="Password"
             size="md"
             onChange={passwordChangedHandler}
@@ -52,15 +82,23 @@ const LoginForm = (props) => {
         </Box>
         <Box>
           <Input
+            id="confirmedPassword"
+            type="password"
             placeholder="Confirm Password"
             size="md"
             onChange={passwordConfirmedChangedHandler}
             value={enteredConfirmedPassword}
           />
         </Box>
-        <Button colorScheme="orange" onClick={loginHandler}>
+        <Button colorScheme="orange" onClick={signupHandler}>
           Sign Up
         </Button>
+        {errorMsg && (
+          <Alert status="error">
+            <AlertIcon />
+            {errorMsg}
+          </Alert>
+        )}
       </VStack>
     </FormControl>
   );

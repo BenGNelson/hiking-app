@@ -1,13 +1,13 @@
 import { Box } from "@chakra-ui/react";
 
-import UserHikeItem from "./UserHikeItem";
+import HikeItem from "./HikeItem";
 
 const HikesList = (props) => {
   const hikes = props.hikes;
   return (
     <Box>
       {hikes.map((hike, index) => (
-        <UserHikeItem key={hike._id} hike={hike} onDelete={props.onDeleteHike} />
+        <HikeItem key={hike._id} hike={hike} />
       ))}
     </Box>
   );
