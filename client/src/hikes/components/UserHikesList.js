@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 
-import HikeItem from "./HikeItem";
+import HikeItem from "./UserHikeItem";
 
 const HikesList = (props) => {
   const hikes = props.hikes;

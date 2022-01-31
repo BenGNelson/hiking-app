@@ -1,4 +1,7 @@
 import React from "react";
+import { FaMountain } from "react-icons/fa";
+import { BsPlusLg } from "react-icons/bs";
+import { MdLogin } from "react-icons/md";
 import {
   Flex,
   Spacer,
@@ -6,6 +9,7 @@ import {
   Heading,
   Button,
   Container,
+  Link,
 } from "@chakra-ui/react";
 
 const Navbar = () => {
@@ -13,14 +17,27 @@ const Navbar = () => {
     <Container maxW="container.xl" py={4}>
       <Flex>
         <Box p="2">
-          <Heading size="md">Hiking App</Heading>
+          <Link href="/" style={{ textDecoration: "none" }} passHref>
+            <Heading size="md">Hiking App</Heading>
+          </Link>
         </Box>
         <Spacer />
         <Box>
-          <Button colorScheme="teal" mr="4">
-            Sign Up
-          </Button>
-          <Button colorScheme="teal">Log in</Button>
+          <Link href="/hikes" style={{ textDecoration: "none" }} passHref>
+            <Button rightIcon={<FaMountain />} colorScheme="purple" mr="4">
+              Your Hikes
+            </Button>
+          </Link>
+          <Link href="/hikes" style={{ textDecoration: "none" }} passHref>
+            <Button rightIcon={<BsPlusLg />} colorScheme="orange" mr="4">
+              Sign Up
+            </Button>
+          </Link>
+          <Link href="/login" style={{ textDecoration: "none" }} passHref>
+            <Button rightIcon={<MdLogin />} colorScheme="teal">
+              Log in
+            </Button>
+          </Link>
         </Box>
       </Flex>
     </Container>

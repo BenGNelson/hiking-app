@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import { ChakraProvider, Container, Box } from "@chakra-ui/react";
 
 import AddHike from "../components/AddHike";
-import HikesList from "../components/HikesList";
+import HikesList from "../components/UserHikesList";
 import { getAllHikes, addHike, deleteHike } from "../HikeService";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 
@@ -64,7 +64,6 @@ const Hikes = (props) => {
   } else {
     return (
       <ChakraProvider>
-        <Container maxW="container.xl" py={4}></Container>
         <Container maxW="container.md" py={5}>
           <AddHike onAddHike={addHikeHandler} />
           <HikesList hikes={userHikes} onDeleteHike={hikeDeletedHandler} />

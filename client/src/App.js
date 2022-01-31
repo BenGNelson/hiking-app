@@ -11,6 +11,7 @@ import Navbar from "../src/ui/Navbar";
 import AllHikes from "./hikes/pages/AllHikes";
 import UserHikes from "./hikes/pages/UserHikes";
 import Hikes404 from "../src/shared/pages/404";
+import Login from "../src/shared/pages/Login";
 
 const App = () => {
   return (
@@ -27,6 +28,9 @@ const App = () => {
         </Route>
         <Route path="/hikes/:id">
           <UserHikes />
+        </Route>
+        <Route path="/login">
+          <Login />
         </Route>
         <Route path="/404">
           <Hikes404 />

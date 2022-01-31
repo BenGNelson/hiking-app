@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { ChakraProvider, Container, Box } from "@chakra-ui/react";
 
-import HikesList from "../components/HikesList";
+import HikesList from "../components/UserHikesList";
 import { getAllHikes } from "../HikeService";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 
