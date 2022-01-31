@@ -3,7 +3,7 @@ import { ChakraProvider, Container, Box } from "@chakra-ui/react";
 
 import AddHike from "../components/AddHike";
 import HikesList from "../components/UserHikesList";
-import { getAllHikes, addHike, deleteHike } from "../HikeService";
+import { getAllHikes, addHike, deleteHike } from "../../services/HikeService";
 
 const Hikes = (props) => {
   const [userHikes, setHikes] = useState([]);

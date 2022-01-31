@@ -4,7 +4,7 @@ const HikeSchema = new mongoose.Schema({
   hikeName: {
     type: String,
     trim: true,
-    required: [true, "Please add name"],
+    required: [true, "Please add a name"],
   },
   hikeLength: {
     type: Number,

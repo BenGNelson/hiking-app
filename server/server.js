@@ -5,6 +5,9 @@ const colors = require("colors");
 const cors = require("cors");
 const mongoose = require("mongoose");
 
+const hikes = require("./routes/hikes");
+const users = require("./routes/users");
+
 dotenv.config({
   path: "./config/config.env",
 });
@@ -15,8 +18,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const hikes = require("./routes/hikes");
+
 app.use("/api/v1/hikes", hikes);
+app.use("/api/v1/users", users);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));

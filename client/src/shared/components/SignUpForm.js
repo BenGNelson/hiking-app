@@ -34,10 +34,16 @@ const LoginForm = (props) => {
       return;
     }
 
-    setenteredUsername("");
-    setenteredPassword("");
-    setEnteredenteredConfirmedPassword("");
-    setErrorMsg("");
+     try {
+      props.onSignup(enteredUsername, enteredPassword);
+    } catch (error) {
+      console.log(error);
+    }
+
+    // setenteredUsername("");
+    // setenteredPassword("");
+    // setEnteredenteredConfirmedPassword("");
+    // setErrorMsg("");
   };
 
   const usernameChangedHandler = (event) => {

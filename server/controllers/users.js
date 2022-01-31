@@ -1,13 +1,14 @@
-const Hike = require("../models/Hike");
+const User = require("../models/User");
 
-// @desc    Get hike by id
-// @route   GET /api/v1/hikes/:id
+// @desc    Get user by id
+// @route   GET /api/v1/users/:id
 // @access  Public
-exports.getHike = async (req, res, next) => {
+exports.getUser = async (req, res, next) => {
   try {
-    const hike = await Hike.findById(req.params.id);
+    const user = await User.findOne({ username: req.params.username});
+    console.log(user)
 
-    return res.status(200).json(hike);
+    return res.status(200).json(user);
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -17,17 +18,17 @@ exports.getHike = async (req, res, next) => {
   }
 };
 
-// @desc    Get all hikes
-// @route   GET /api/v1/hikes
+// @desc    Get all users
+// @route   GET /api/v1/users
 // @access  Public
-exports.getHikes = async (req, res, next) => {
+exports.getUsers = async (req, res, next) => {
   try {
-    const hikes = await Hike.find().sort({ createdAt: -1 });
+    const users = await User.find().sort({ createdAt: -1 });
 
     return res.status(200).json({
       success: true,
-      count: hikes.length,
-      data: hikes,
+      count: users.length,
+      data: users,
     });
   } catch (error) {
     console.log(error);
@@ -38,39 +39,39 @@ exports.getHikes = async (req, res, next) => {
   }
 };
 
-// @desc    Add hike
-// @route   POST /api/v1/hikes
+// @desc    Add user
+// @route   POST /api/v1/users
 // @access  Public
-exports.addHike = async (req, res, next) => {
+exports.addUser = async (req, res, next) => {
   try {
-    const { hikeName, hikeLength, hikeRating } = req.body;
+    const { username, password } = req.body;
 
-    if (!hikeName) {
+    if (!username) {
       return res.status(400).json({
         success: false,
         error: "Hike must have a name",
       });
     }
 
-    if (hikeLength < 0 || hikeLength > 99) {
+    if (username.length < 3) {
       return res.status(400).json({
         success: false,
-        error: "Length must be between 0 99",
+        error: "Username must be greater than 2 characters",
       });
     }
 
-    if (hikeRating < 0 || hikeRating > 5) {
+    if (password.length < 5) {
       return res.status(400).json({
         success: false,
-        error: "Rank must be between 1 and 5",
+        error: "Password must greater than 4 characters",
       });
     }
 
-    const hike = await Hike.create(req.body);
+    const user = await User.create(req.body);
 
     return res.status(201).json({
       success: true,
-      data: hike,
+      data: user,
     });
   } catch (error) {
     if (error.name === "ValidationError") {
@@ -90,25 +91,25 @@ exports.addHike = async (req, res, next) => {
   }
 };
 
-// @desc    Delete hike
-// @route   DELETE /api/v1/hikes/:id
+// @desc    Delete user
+// @route   DELETE /api/v1/users/:id
 // @access  Public
-exports.deleteHike = async (req, res, next) => {
+exports.deleteUser = async (req, res, next) => {
   try {
-    const hike = await Hike.findById(req.params.id);
+    const user = await Hike.user(req.params.id);
 
-    if (!hike) {
+    if (!user) {
       return res.status(404).json({
         success: false,
-        error: "No hike found",
+        error: "No user found",
       });
     }
 
-    await hike.remove();
+    await user.remove();
 
     return res.status(200).json({
       success: true,
-      data: hike,
+      data: user,
     });
   } catch (error) {
     console.log(error);
@@ -119,12 +120,12 @@ exports.deleteHike = async (req, res, next) => {
   }
 };
 
-// @desc    Delete all hike
-// @route   DELETE /api/v1/hikes
+// @desc    Delete all users
+// @route   DELETE /api/v1/users
 // @access  Public
-exports.deleteAllHikes = async (req, res, next) => {
+exports.deleteAllUsers = async (req, res, next) => {
   try {
-    await Hike.deleteMany({});
+    await User.deleteMany({});
 
     return res.status(200).json({
       success: true,

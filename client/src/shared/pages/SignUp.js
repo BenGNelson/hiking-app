@@ -1,17 +1,43 @@
-import { React } from "react";
-import { ChakraProvider, Container } from "@chakra-ui/react";
+import { React, useState } from "react";
+import { ChakraProvider, Container, Alert, AlertIcon } from "@chakra-ui/react";
 
 import SignUpForm from "../components/SignUpForm";
+import { getUserByName } from "../../services/UserService";
 
 const Signup = (props) => {
+  const [errorMsg, setErrorMsg] = useState(null);
 
-    return (
-      <ChakraProvider>
-        <Container maxW="container.md" py={5}>
-          <SignUpForm />
-        </Container>
-      </ChakraProvider>
-    );
+  const checkUserExists = async (username) => {
+    console.log('In check user: ' + username);
+    try {
+      return await getUserByName(username);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const signupHandler = async (username, password) => {
+    const user = await checkUserExists(username);
+    if (user) {
+      setErrorMsg("Username already exists");
+      return;
+    }
+    return 0;
+  };
+
+  return (
+    <ChakraProvider>
+      <Container maxW="container.md" py={5}>
+        <SignUpForm onSignup={signupHandler} />
+        {errorMsg && (
+          <Alert status="error" mt="30px">
+            <AlertIcon />
+            {errorMsg}
+          </Alert>
+        )}
+      </Container>
+    </ChakraProvider>
+  );
 };
 
 export default Signup;
