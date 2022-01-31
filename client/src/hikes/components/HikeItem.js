@@ -30,17 +30,8 @@ const HikeItem = (props) => {
 
   const confirmDeleteHandler = async (event) => {
     event.preventDefault();
-    try {
-      const res = await sendRequest(
-        `${apiBaseRoute}/api/v1/hikes/${hike._id}`,
-        "DELETE",
-        null
-      );
-      props.onDelete(res.data);
-      onCloseReportModal();
-    } catch (err) {
-      console.log(err);
-    }
+    props.onDelete(hike);
+    onCloseReportModal();
   };
 
   return (

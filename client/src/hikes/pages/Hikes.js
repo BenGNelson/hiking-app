@@ -27,15 +27,25 @@ const Hikes = (props) => {
   }, [isLoaded, sendRequest]);
 
   const addHikeHandler = (hike) => {
-        setHikes([hike, ...hikes]);
-        setIsLoaded(true);
-        console.log(hikes);
+    setHikes([hike, ...hikes]);
+    setIsLoaded(true);
+    console.log(hikes);
   };
 
-  const hikeDeletedHandler = (deletedHike) => {
+  const hikeDeletedHandler = async (deletedHike) => {
+    try {
+      await sendRequest(
+        `${apiBaseRoute}/api/v1/hikes/${deletedHike._id}`,
+        "DELETE",
+        null
+      );
+    } catch (err) {
+      console.log(err);
+    }
     setHikes((prevHikes) =>
       prevHikes.filter((hike) => hike._id !== deletedHike._id)
     );
+    setIsLoaded(true);
   };
 
   if (error) {
@@ -58,7 +68,7 @@ const Hikes = (props) => {
         </Container>
         <Container maxW="container.md" py={5}>
           <AddHike onAddHike={addHikeHandler} />
-          <HikesList hikes={hikes} onDeleteHike={hikeDeletedHandler}/>
+          <HikesList hikes={hikes} onDeleteHike={hikeDeletedHandler} />
         </Container>
       </ChakraProvider>
     );
