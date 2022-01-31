@@ -22,6 +22,7 @@ const Hikes = (props) => {
         setHikes(res.data);
         setIsLoaded(true);
       } catch (error) {
+        setError(error);
         console.log(error);
       }
     };
@@ -42,6 +43,7 @@ const Hikes = (props) => {
       );
     } catch (err) {
       console.log(err);
+      setError(error);
     }
     setHikes((prevHikes) =>
       prevHikes.filter((hike) => hike._id !== deletedHike._id)
