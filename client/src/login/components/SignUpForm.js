@@ -17,7 +17,7 @@ import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 
 import { getUserByName } from "../../services/UserService";
 
-const LoginForm = (props) => {
+const SignUpForm = (props) => {
   const [enteredUsername, setenteredUsername] = useState("");
   const [enteredPassword, setenteredPassword] = useState("");
   const [enteredConfirmedPassword, setEnteredenteredConfirmedPassword] =
@@ -145,4 +145,4 @@ const LoginForm = (props) => {
   );
 };
 
-export default LoginForm;
+export default SignUpForm;

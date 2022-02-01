@@ -12,11 +12,12 @@ import {
   Link,
   Center,
   IconButton,
-  useColorMode,
+  useColorMode, 
 } from "@chakra-ui/react";
 
+
 const Navbar = () => {
-  const { toggleColorMode } = useColorMode();
+const { colorMode, toggleColorMode } = useColorMode();
 
   return (
     <Container maxW="container.xl" py={4}>
@@ -43,13 +44,10 @@ const Navbar = () => {
               Log in
             </Button>
           </Link>
-          <IconButton
-            onClick={toggleColorMode}
-            variant="solid"
-            colorScheme="gray"
-            aria-label="Dark mode"
-            icon={<BsMoonFill />}
-          />
+          
+          <Button leftIcon={<BsMoonFill />} colorScheme="gray" mr="4" onClick={toggleColorMode}>
+              Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
+            </Button>
         </Center>
       </Flex>
     </Container>

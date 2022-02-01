@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { ChakraProvider, Container, Alert, AlertIcon } from "@chakra-ui/react";
+import { Container, Alert, AlertIcon } from "@chakra-ui/react";
 
 import SignUpForm from "../components/SignUpForm";
 import { getUserByName } from "../../services/UserService";
