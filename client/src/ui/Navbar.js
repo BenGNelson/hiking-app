@@ -1,6 +1,6 @@
 import React from "react";
 import { FaMountain } from "react-icons/fa";
-import { BsPlusLg } from "react-icons/bs";
+import { BsPlusLg, BsMoonFill } from "react-icons/bs";
 import { MdLogin } from "react-icons/md";
 import {
   Flex,
@@ -10,10 +10,14 @@ import {
   Button,
   Container,
   Link,
-  Center
+  Center,
+  IconButton,
+  useColorMode,
 } from "@chakra-ui/react";
 
 const Navbar = () => {
+  const { toggleColorMode } = useColorMode();
+
   return (
     <Container maxW="container.xl" py={4}>
       <Flex>
@@ -25,20 +29,27 @@ const Navbar = () => {
         <Spacer />
         <Center>
           <Link href="/hikes" style={{ textDecoration: "none" }}>
-            <Button rightIcon={<FaMountain />} colorScheme="purple" mr="4">
+            <Button leftIcon={<FaMountain />} colorScheme="purple" mr="4">
               Your Hikes
             </Button>
           </Link>
           <Link href="/signup" style={{ textDecoration: "none" }}>
-            <Button rightIcon={<BsPlusLg />} colorScheme="orange" mr="4">
+            <Button leftIcon={<BsPlusLg />} colorScheme="orange" mr="4">
               Sign Up
             </Button>
           </Link>
           <Link href="/login" style={{ textDecoration: "none" }}>
-            <Button rightIcon={<MdLogin />} colorScheme="teal">
+            <Button leftIcon={<MdLogin />} colorScheme="teal" mr="4">
               Log in
             </Button>
           </Link>
+          <IconButton
+            onClick={toggleColorMode}
+            variant="solid"
+            colorScheme="gray"
+            aria-label="Dark mode"
+            icon={<BsMoonFill />}
+          />
         </Center>
       </Flex>
     </Container>

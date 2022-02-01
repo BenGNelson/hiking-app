@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { ChakraProvider, Container, Box } from "@chakra-ui/react";
+import { Container, Box } from "@chakra-ui/react";
 
 import HikesList from "../components/AllHikesList";
 import { getAllHikes } from "../../services/HikeService";
@@ -27,19 +27,15 @@ const Hikes = (props) => {
     return <Box>Error: {error.message}</Box>;
   } else if (!isLoaded) {
     return (
-      <ChakraProvider>
-        <Container maxW="container.md" py={5}>
-          <Box>Loading...</Box>
-        </Container>
-      </ChakraProvider>
+      <Container maxW="container.md" py={5}>
+        <Box>Loading...</Box>
+      </Container>
     );
   } else {
     return (
-      <ChakraProvider>
-        <Container maxW="container.sm" py={5}>
-          <HikesList hikes={allHikes} />
-        </Container>
-      </ChakraProvider>
+      <Container maxW="container.sm" py={5}>
+        <HikesList hikes={allHikes} />
+      </Container>
     );
   }
 };

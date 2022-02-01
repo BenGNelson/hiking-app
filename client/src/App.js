@@ -1,5 +1,4 @@
 import React from "react";
-import { ChakraProvider } from "@chakra-ui/react";
 
 import {
   BrowserRouter as Router,
@@ -7,6 +6,7 @@ import {
   Redirect,
   Switch,
 } from "react-router-dom";
+
 import Navbar from "../src/ui/Navbar";
 import AllHikes from "./hikes/pages/AllHikes";
 import UserHikes from "./hikes/pages/UserHikes";
@@ -17,9 +17,7 @@ import Signup from "../src/shared/pages/SignUp";
 const App = () => {
   return (
     <Router>
-      <ChakraProvider>
-        <Navbar />
-      </ChakraProvider>
+      <Navbar />
       <Switch>
         <Route path="/" exact>
           <AllHikes />

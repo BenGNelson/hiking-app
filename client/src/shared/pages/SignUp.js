@@ -25,17 +25,15 @@ const Signup = (props) => {
   };
 
   return (
-    <ChakraProvider>
-      <Container maxW="container.md" py={5}>
-        <SignUpForm onSignup={signupHandler} />
-        {errorMsg && (
-          <Alert status="error" mt="30px">
-            <AlertIcon />
-            {errorMsg}
-          </Alert>
-        )}
-      </Container>
-    </ChakraProvider>
+    <Container maxW="container.md" py={5}>
+      <SignUpForm onSignup={signupHandler} />
+      {errorMsg && (
+        <Alert status="error" mt="30px">
+          <AlertIcon />
+          {errorMsg}
+        </Alert>
+      )}
+    </Container>
   );
 };
 

@@ -52,21 +52,17 @@ const Hikes = (props) => {
     return <Box>Error: {error.message}</Box>;
   } else if (!isLoaded) {
     return (
-      <ChakraProvider>
-        <Container maxW="container.md" py={5}>
-          <AddHike />
-          <Box>Loading...</Box>
-        </Container>
-      </ChakraProvider>
+      <Container maxW="container.md" py={5}>
+        <AddHike />
+        <Box>Loading...</Box>
+      </Container>
     );
   } else {
     return (
-      <ChakraProvider>
-        <Container maxW="container.md" py={5}>
-          <AddHike onAddHike={addHikeHandler} />
-          <HikesList hikes={userHikes} onDeleteHike={hikeDeletedHandler} />
-        </Container>
-      </ChakraProvider>
+      <Container maxW="container.md" py={5}>
+        <AddHike onAddHike={addHikeHandler} />
+        <HikesList hikes={userHikes} onDeleteHike={hikeDeletedHandler} />
+      </Container>
     );
   }
 };
