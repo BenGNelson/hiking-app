@@ -21,3 +21,6 @@ const HikeSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("Hike", HikeSchema);
+
+
+// Maybe add altitude/elevation change

@@ -10,6 +10,8 @@ import {
   AlertIcon,
   InputRightElement,
   InputGroup,
+  Text,
+  HStack,
 } from "@chakra-ui/react";
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 
@@ -95,9 +97,15 @@ const LoginForm = (props) => {
             <InputRightElement
               children={
                 isValidUser ? (
-                  <CheckIcon color="green.500" />
+                  <HStack   pr="60px" >
+                    <Text align='right' color="green"> Available</Text>
+                    <CheckIcon align='right' color="green.500" />
+                  </HStack>
                 ) : (
-                  <CloseIcon color="red.500" />
+                  <HStack pr={20} >
+                    <Text align='right' color="red"> Unavailable</Text>
+                    <CloseIcon align='right'vel color="red.500" />
+                  </HStack>
                 )
               }
             />

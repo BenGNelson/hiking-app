@@ -10,6 +10,7 @@ import {
   Button,
   Container,
   Link,
+  Center
 } from "@chakra-ui/react";
 
 const Navbar = () => {
@@ -22,7 +23,7 @@ const Navbar = () => {
           </Link>
         </Box>
         <Spacer />
-        <Box>
+        <Center>
           <Link href="/hikes" style={{ textDecoration: "none" }}>
             <Button rightIcon={<FaMountain />} colorScheme="purple" mr="4">
               Your Hikes
@@ -38,7 +39,7 @@ const Navbar = () => {
               Log in
             </Button>
           </Link>
-        </Box>
+        </Center>
       </Flex>
     </Container>
   );

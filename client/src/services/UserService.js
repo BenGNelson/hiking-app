@@ -16,13 +16,11 @@ export const getUserById = async (userId) => {
 };
 
 export const getUserByName = async (username) => {
-  console.log('in service');
   try {
     const response = await fetch(`${apiRoute}/${username}`);
     const responseData = await response.json();
 
     if (!response.ok) {
-      console.log('frog');
       throw new Error(responseData.message);
     }
 

@@ -6,8 +6,6 @@ const User = require("../models/User");
 exports.getUser = async (req, res, next) => {
   try {
     const user = await User.findOne({ username: req.params.username });
-    console.log(user);
-
     return res.status(200).json(user);
   } catch (error) {
     console.log(error);
