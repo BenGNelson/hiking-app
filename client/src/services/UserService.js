@@ -1,3 +1,5 @@
+const axios = require("axios");
+
 const apiRoute = "http://localhost:5000/api/v1/users";
 
 export const getUserById = async (userId) => {
@@ -17,27 +19,11 @@ export const getUserById = async (userId) => {
 
 export const getUserByName = async (username) => {
   try {
-    const response = await fetch(`${apiRoute}/${username}`);
-    const responseData = await response.json();
-
-    if (!response.ok) {
-      throw new Error(responseData.message);
-    }
-
-    return responseData;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const getAllUsers = async () => {
-  try {
-    const response = await fetch(apiRoute);
-    const responseData = await response.json();
-
-    if (!response.ok) {
-      throw new Error(responseData.message);
-    }
+    const res = await axios.get(`${apiRoute}/${username}`, {
+      validateStatus: false,
+    });
+    const responseData = res.data;
+    console.log(res.data);
 
     return responseData;
   } catch (error) {
@@ -47,15 +33,29 @@ export const getAllUsers = async () => {
 
 export const addUser = async (username, password) => {
   try {
-    const response = await fetch(apiRoute, {
-      method: "POST",
-      body: JSON.stringify({
+    const res = await axios.post(
+      apiRoute,
+      {
         username,
         password,
-      }),
-      headers: { "Content-Type": "application/json" },
-    });
+      },
+      {
+        validateStatus: false,
+      }
+    );
 
+    const responseData = res.data;
+
+    return responseData;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+export const getAllUsers = async () => {
+  try {
+    const response = await fetch(`${apiRoute}/all`);
     const responseData = await response.json();
 
     if (!response.ok) {
@@ -65,7 +65,6 @@ export const addUser = async (username, password) => {
     return responseData;
   } catch (error) {
     console.log(error);
-    return error;
   }
 };
 

@@ -51,7 +51,7 @@ const AddHike = (props) => {
     }
 
     toast({
-      position: "top",
+      position: "bottom",
       title: "Hike Added!",
       status: "success",
       duration: 2000,

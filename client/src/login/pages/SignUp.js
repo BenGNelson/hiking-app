@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { Container, Alert, AlertIcon } from "@chakra-ui/react";
 
 import SignUpForm from "../components/SignUpForm";
-import { getUserByName } from "../../services/UserService";
+import { getUserByName, addUser } from "../../services/UserService";
 
 const Signup = (props) => {
   const [errorMsg, setErrorMsg] = useState(null);
@@ -21,7 +21,12 @@ const Signup = (props) => {
       setErrorMsg("Username already exists");
       return;
     }
-    return 0;
+    try {
+      return await addUser(username, password);
+    } catch (error) {
+      console.log(error);
+    }
+    setErrorMsg(null);
   };
 
   return (
