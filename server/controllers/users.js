@@ -1,5 +1,12 @@
 const bcrypt = require("bcryptjs");
+const dotenv = require("dotenv");
+const jwt = require("jsonwebtoken");
+
 const User = require("../models/User");
+
+dotenv.config({
+  path: "./config/config.env",
+});
 
 // @desc    Get user by id
 // @route   GET /api/v1/users/:id
@@ -66,11 +73,7 @@ exports.addUser = async (req, res, next) => {
     try {
       hashedPassword = await bcrypt.hash(password, 12);
     } catch (err) {
-      const error = new HttpError(
-        "Could not create user, please try again.",
-        500
-      );
-      return next(error);
+      return res.status(500).send();
     }
 
     const createdUser = new User({
@@ -81,11 +84,7 @@ exports.addUser = async (req, res, next) => {
     try {
       await createdUser.save();
     } catch (err) {
-      const error = new HttpError(
-        "Signing up failed, please try again later.",
-        500
-      );
-      return next(error);
+      return res.status(500).send();
     }
 
     return res.status(201).json({ username: createdUser.username });
@@ -105,6 +104,52 @@ exports.addUser = async (req, res, next) => {
   }
 };
 
+// @desc    Logs in user
+// @route   GET /api/v1/users
+// @access  Public
+exports.logInUser = async (req, res, next) => {
+  let existingUser;
+  const { username, password } = req.body;
+
+  try {
+    existingUser = await User.findOne({ username: username });
+  } catch (error) {
+    console.log(error);
+  }
+
+  if (!existingUser) {
+    return res.status(403).send();
+  }
+
+  let isValidPassword = false;
+  try {
+    isValidPassword = await bcrypt.compare(password, existingUser.password);
+  } catch (error) {
+    return res.status(403).json({ message: error });
+  }
+
+  if (!isValidPassword) {
+    return res.status(403).send();
+  }
+
+  let token;
+  console.log(process.env.MONGO_ADMIN);
+  try {
+    token = jwt.sign(
+      { userId: existingUser.id, email: existingUser.email },
+      process.env.MONGO_ADMIN,
+      { expiresIn: "1h" }
+    );
+  } catch (err) {
+    return res.status(500).json({ message: error });
+  }
+
+  return res.status(200).json({
+    username: existingUser.username,
+    token: token,
+  });
+};
+
 // @desc    Delete user
 // @route   DELETE /api/v1/users/:id
 // @access  Public
@@ -113,14 +158,12 @@ exports.deleteUser = async (req, res, next) => {
     const user = await Hike.user(req.params.id);
 
     if (!user) {
-      return res.status(404).json({
-        error: "No user found",
-      });
+      return res.status(404).send();
     }
 
     await user.remove();
 
-    return res.status(200).json(user);
+    return res.status(200).json({ _id: user._id, username: user.username });
   } catch (error) {
     console.log(error);
     return res.status(500).json({

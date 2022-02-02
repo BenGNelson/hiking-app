@@ -53,6 +53,28 @@ export const addUser = async (username, password) => {
   }
 };
 
+export const logInUser = async (username, password) => {
+  try {
+    const res = await axios.post(
+      `${apiRoute}/login`,
+      {
+        username,
+        password,
+      },
+      {
+        validateStatus: false,
+      }
+    );
+
+    const responseData = res.data;
+
+    return responseData;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
 export const getAllUsers = async () => {
   try {
     const response = await fetch(`${apiRoute}/all`);
