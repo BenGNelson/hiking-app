@@ -1,3 +1,4 @@
+const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 
 // @desc    Get user by id
@@ -15,13 +16,29 @@ exports.getUser = async (req, res, next) => {
     });
   }
 };
+// exports.getUser = async (req, res, next) => {
+//   try {
+//     const user = await User.findOne({ username: req.params.username });
+//     if (user) {
+//       return res.status(200).json({ _id: user._id, username: user.username });
+//     } else {
+//       return res.status(404).send();
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(500).json({
+//       success: false,
+//       error: "Server Error",
+//     });
+//   }
+// };
 
 // @desc    Get all users
 // @route   GET /api/v1/users
 // @access  Public
 exports.getUsers = async (req, res, next) => {
   try {
-    const users = await User.find().sort({ createdAt: -1 });
+    const users = await User.find({}, "-password").sort({ createdAt: -1 });
 
     return res.status(200).json({
       success: true,
@@ -63,6 +80,17 @@ exports.addUser = async (req, res, next) => {
         success: false,
         error: "Password must greater than 4 characters",
       });
+    }
+
+    let hashedPassword;
+    try {
+      hashedPassword = await bcrypt.hash(password, 12);
+    } catch (err) {
+      const error = new HttpError(
+        "Could not create user, please try again.",
+        500
+      );
+      return next(error);
     }
 
     const user = await User.create(req.body);

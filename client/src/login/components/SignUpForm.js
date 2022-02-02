@@ -48,10 +48,10 @@ const SignUpForm = (props) => {
       console.log(error);
     }
 
-    // setenteredUsername("");
-    // setenteredPassword("");
-    // setEnteredenteredConfirmedPassword("");
-    // setErrorMsg("");
+    setenteredUsername("");
+    setenteredPassword("");
+    setEnteredenteredConfirmedPassword("");
+    setErrorMsg("");
   };
 
   const usernameChangedHandler = async (event) => {
@@ -97,14 +97,20 @@ const SignUpForm = (props) => {
             <InputRightElement
               children={
                 isValidUser ? (
-                  <HStack   pr="60px" >
-                    <Text align='right' color="green"> Available</Text>
-                    <CheckIcon align='right' color="green.500" />
+                  <HStack pr="60px">
+                    <Text align="right" color="green">
+                      {" "}
+                      Available
+                    </Text>
+                    <CheckIcon align="right" color="green.500" />
                   </HStack>
                 ) : (
-                  <HStack pr={20} >
-                    <Text align='right' color="red"> Unavailable</Text>
-                    <CloseIcon align='right'vel color="red.500" />
+                  <HStack pr={20}>
+                    <Text align="right" color="red">
+                      {" "}
+                      Unavailable
+                    </Text>
+                    <CloseIcon align="right" color="red.500" />
                   </HStack>
                 )
               }

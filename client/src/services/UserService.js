@@ -51,7 +51,7 @@ export const addUser = async (username, password) => {
       method: "POST",
       body: JSON.stringify({
         username,
-        password
+        password,
       }),
       headers: { "Content-Type": "application/json" },
     });
@@ -65,7 +65,7 @@ export const addUser = async (username, password) => {
     return responseData;
   } catch (error) {
     console.log(error);
-    return (error);
+    return error;
   }
 };
 

@@ -11,7 +11,6 @@ import {
   Container,
   Link,
   Center,
-  IconButton,
   useColorMode, 
 } from "@chakra-ui/react";
 
@@ -44,7 +43,6 @@ const { colorMode, toggleColorMode } = useColorMode();
               Log in
             </Button>
           </Link>
-          
           <Button leftIcon={<BsMoonFill />} colorScheme="gray" mr="4" onClick={toggleColorMode}>
               Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
             </Button>
