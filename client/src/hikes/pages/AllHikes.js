@@ -1,7 +1,8 @@
 import { React, useState, useEffect } from "react";
-import { Container, Box } from "@chakra-ui/react";
+import { Container, Box, Stack, Skeleton } from "@chakra-ui/react";
 
 import HikesList from "../components/AllHikesList";
+import UserHikeSkeleton from "../../shared/UserHikeSkeleton";
 import { getAllHikes } from "../../services/HikeService";
 
 const Hikes = (props) => {
@@ -27,8 +28,12 @@ const Hikes = (props) => {
     return <Box>Error: {error.message}</Box>;
   } else if (!isLoaded) {
     return (
-      <Container maxW="container.md" py={5}>
-        <Box>Loading...</Box>
+      <Container maxW="container.sm" py={5}>
+        <Stack spacing={8}>
+          <UserHikeSkeleton />
+          <UserHikeSkeleton />
+          <UserHikeSkeleton />
+        </Stack>
       </Container>
     );
   } else {

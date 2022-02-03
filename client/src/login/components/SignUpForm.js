@@ -57,7 +57,7 @@ const SignUpForm = (props) => {
 
     toast({
       title: `Thanks for joining ${enteredUsername}!`,
-      description: "We've created your account for you.",
+      description: "Your account has been created. You can now log in.",
       status: "success",
       duration: 9000,
       isClosable: true,

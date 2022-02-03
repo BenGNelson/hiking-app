@@ -31,7 +31,7 @@ export const getUserByName = async (username) => {
   }
 };
 
-export const addUser = async (username, password) => {
+export const signUpUser = async (username, password) => {
   try {
     const res = await axios.post(
       apiRoute,

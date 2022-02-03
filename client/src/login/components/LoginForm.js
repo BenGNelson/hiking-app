@@ -30,6 +30,12 @@ const LoginForm = (props) => {
       return;
     }
 
+    try {
+      props.onLogIn(enteredUsername, enteredPassword);
+    } catch (error) {
+      console.log(error);
+    }
+
     setenteredUsername("");
     setenteredPassword("");
     setErrorMsg("");
