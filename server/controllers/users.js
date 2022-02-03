@@ -44,10 +44,10 @@ exports.getUsers = async (req, res, next) => {
   }
 };
 
-// @desc    Add user
+// @desc    Sign up user
 // @route   POST /api/v1/users
 // @access  Public
-exports.addUser = async (req, res, next) => {
+exports.signUp = async (req, res, next) => {
   try {
     const { username, password } = req.body;
 
@@ -104,10 +104,10 @@ exports.addUser = async (req, res, next) => {
   }
 };
 
-// @desc    Logs in user
+// @desc    Log in user
 // @route   GET /api/v1/users
 // @access  Public
-exports.logInUser = async (req, res, next) => {
+exports.logIn = async (req, res, next) => {
   let existingUser;
   const { username, password } = req.body;
 
@@ -133,11 +133,10 @@ exports.logInUser = async (req, res, next) => {
   }
 
   let token;
-  console.log(process.env.MONGO_ADMIN);
   try {
     token = jwt.sign(
-      { userId: existingUser.id, email: existingUser.email },
-      process.env.MONGO_ADMIN,
+      { username: existingUser.username, email: existingUser.email },
+      process.env.PRIVATE_KEY,
       { expiresIn: "1h" }
     );
   } catch (err) {
