@@ -15,6 +15,21 @@ export const getAllHikes = async () => {
   }
 };
 
+export const getUserHikes = async () => {
+  try {
+    const response = await fetch(apiRoute);
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      throw new Error(responseData.message);
+    }
+
+    return responseData;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const addHike = async (hikeName, hikeLength, hikeRating) => {
   try {
     const response = await fetch(apiRoute, {

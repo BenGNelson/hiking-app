@@ -14,6 +14,10 @@ const HikeSchema = new mongoose.Schema({
     type: Number,
     required: [true, "Please add a rating"],
   },
+  hiker: {
+    type: String,
+    required: [true, "Hike needs a hiker"],
+  },
   createdAt: {
     type: Date,
     default: Date.now,
@@ -21,6 +25,5 @@ const HikeSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("Hike", HikeSchema);
-
 
 // Maybe add altitude/elevation change
