@@ -15,9 +15,11 @@ const App = () => {
   const historyInstance = createBrowserHistory();
 
   const storedData = JSON.parse(localStorage.getItem("userData"));
-  let token, username, tokenExpiresIn;
+  let token, username, tokenExpiration;
   if (storedData) {
     token = storedData.token;
+    username = storedData.username;
+    tokenExpiration = storedData.tokenExpiration;
   }
 
   console.log(token, username);
@@ -64,7 +66,7 @@ const App = () => {
         isLoggedIn: !!token,
         token: token,
         username: username,
-        tokenExpiresIn: tokenExpiresIn,
+        tokenExpiration: tokenExpiration,
       }}
     >
       <Router history={historyInstance}>

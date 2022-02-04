@@ -1,3 +1,5 @@
+const axios = require("axios");
+
 const apiRoute = "http://localhost:5000/api/v1/hikes";
 
 export const getAllHikes = async () => {
@@ -15,7 +17,19 @@ export const getAllHikes = async () => {
   }
 };
 
-export const getUserHikes = async () => {
+export const getUserHikes = async (username) => {
+  try {
+    const res = await axios.get(`${apiRoute}/user-hikes/${username}`, {
+      validateStatus: false,
+    });
+    const responseData = res.data;
+    console.log(res.data);
+
+    return responseData;
+  } catch (error) {
+    console.log(error);
+  }
+
   try {
     const response = await fetch(apiRoute);
     const responseData = await response.json();
@@ -30,7 +44,7 @@ export const getUserHikes = async () => {
   }
 };
 
-export const addHike = async (hikeName, hikeLength, hikeRating) => {
+export const addHike = async (hikeName, hikeLength, hikeRating, hiker) => {
   try {
     const response = await fetch(apiRoute, {
       method: "POST",
@@ -38,6 +52,7 @@ export const addHike = async (hikeName, hikeLength, hikeRating) => {
         hikeName,
         hikeLength,
         hikeRating,
+        hiker,
       }),
       headers: { "Content-Type": "application/json" },
     });

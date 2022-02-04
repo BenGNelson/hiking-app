@@ -6,7 +6,7 @@ export const addToLocalStorage = (response) => {
     JSON.stringify({
       username: response.username,
       token: response.token,
-      expiration: tokenExpirationDate.toISOString(),
+      tokenExpiration: tokenExpirationDate.toISOString(),
     })
   );
 };

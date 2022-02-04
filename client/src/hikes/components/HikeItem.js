@@ -10,7 +10,8 @@ const HikeItem = (props) => {
         <Center>
           <HStack justifyContent="space-between">
             <Box>
-              <Heading fontSize="xl">{hike.hikeName}</Heading>
+              <Heading fontSize="xl">Hiker: {hike.hiker}</Heading>
+              <Text mt={4}>{hike.hikeName}</Text>
               <Text mt={4}>Length (miles): {hike.hikeLength}</Text>
               <Text mt={4}>Rating: {hike.hikeRating}</Text>
             </Box>

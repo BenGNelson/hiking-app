@@ -1,14 +1,16 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useContext } from "react";
 import { ChakraProvider, Container, Box } from "@chakra-ui/react";
 
 import AddHike from "../components/AddHike";
 import HikesList from "../components/UserHikesList";
-import { getAllHikes, addHike, deleteHike } from "../../services/HikeService";
+import { AuthContext } from "../../auth/AuthContext";
+import { getUserHikes, addHike, deleteHike } from "../../services/HikeService";
 
 const Hikes = (props) => {
-  const [userHikes, setHikes] = useState([]);
+  const [userHikes, setUserHikes] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
+  const auth = useContext(AuthContext);
 
   useEffect(() => {
     getHikes();
@@ -16,8 +18,9 @@ const Hikes = (props) => {
 
   const getHikes = async () => {
     try {
-      const res = await getAllHikes();
-      setHikes(res.data);
+      console.log(auth);
+      const res = await getUserHikes(auth.username);
+      setUserHikes(res.data);
       setIsLoaded(true);
     } catch (error) {
       setError(setError);
@@ -26,8 +29,13 @@ const Hikes = (props) => {
 
   const addHikeHandler = async (hikeName, hikeLength, hikeRating) => {
     try {
-      const res = await addHike(hikeName, hikeLength, hikeRating);
-      setHikes([res.data, ...userHikes]);
+      const res = await addHike(
+        hikeName,
+        hikeLength,
+        hikeRating,
+        auth.username
+      );
+      setUserHikes([res.data, ...userHikes]);
       setIsLoaded(true);
     } catch (error) {
       setError(setError);
@@ -38,7 +46,7 @@ const Hikes = (props) => {
     try {
       const res = await deleteHike(deletedHike);
       if (res.success) {
-        setHikes((prevHikes) =>
+        setUserHikes((prevHikes) =>
           prevHikes.filter((hike) => hike._id !== deletedHike._id)
         );
         setIsLoaded(true);

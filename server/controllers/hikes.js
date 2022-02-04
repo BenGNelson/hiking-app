@@ -38,6 +38,29 @@ exports.getHikes = async (req, res, next) => {
   }
 };
 
+// @desc    Get user hikes
+// @route   GET /api/v1/hikes
+// @access  Public
+exports.getUserHikes = async (req, res, next) => {
+  try {
+    const hikes = await Hike.find({ hiker: req.params.username }).sort({
+      createdAt: -1,
+    });
+
+    return res.status(200).json({
+      success: true,
+      count: hikes.length,
+      data: hikes,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      error: "Server Error",
+    });
+  }
+};
+
 // @desc    Add hike
 // @route   POST /api/v1/hikes
 // @access  Public
