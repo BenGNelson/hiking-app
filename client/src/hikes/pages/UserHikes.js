@@ -1,5 +1,5 @@
 import { React, useState, useEffect, useContext } from "react";
-import { ChakraProvider, Container, Box } from "@chakra-ui/react";
+import { Container, Box } from "@chakra-ui/react";
 
 import AddHike from "../components/AddHike";
 import HikesList from "../components/UserHikesList";
@@ -67,10 +67,14 @@ const Hikes = (props) => {
     );
   } else {
     return (
-      <Container maxW="container.md" py={5}>
-        <AddHike onAddHike={addHikeHandler} />
-        <HikesList hikes={userHikes} onDeleteHike={hikeDeletedHandler} />
-      </Container>
+      <Box>
+        <Container maxW="container.md" py={5}>
+          <AddHike onAddHike={addHikeHandler} />
+        </Container>
+        <Container maxW="container.sm" py={5}>
+          <HikesList hikes={userHikes} onDeleteHike={hikeDeletedHandler} />
+        </Container>
+      </Box>
     );
   }
 };

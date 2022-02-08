@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { Container, Box, Stack, Skeleton } from "@chakra-ui/react";
+import { Container, Box, Stack } from "@chakra-ui/react";
 
 import HikesList from "../components/AllHikesList";
 import UserHikeSkeleton from "../../shared/UserHikeSkeleton";
@@ -28,7 +28,7 @@ const Hikes = (props) => {
     return <Box>Error: {error.message}</Box>;
   } else if (!isLoaded) {
     return (
-      <Container maxW="container.sm" py={5}>
+      <Container maxW="container.lg" py={5}>
         <Stack spacing={8}>
           <UserHikeSkeleton />
           <UserHikeSkeleton />
@@ -38,7 +38,7 @@ const Hikes = (props) => {
     );
   } else {
     return (
-      <Container maxW="container.sm" py={5}>
+      <Container maxW="container.lg" py={5}>
         <HikesList hikes={allHikes} />
       </Container>
     );

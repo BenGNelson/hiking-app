@@ -1,19 +1,22 @@
 import React from "react";
 import { MdDeleteOutline } from "react-icons/md";
+import { BsFillPencilFill } from "react-icons/bs";
 import {
   Box,
   Heading,
   Text,
-  HStack,
+  VStack,
   Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalCloseButton,
   useDisclosure,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
+  Spacer,
 } from "@chakra-ui/react";
+import { StarIcon } from "@chakra-ui/icons";
 
 const UserHikeItem = (props) => {
   const {
@@ -31,39 +34,62 @@ const UserHikeItem = (props) => {
   };
 
   return (
-    <HStack spacing={8} mt={8}>
-      <Box p={5} shadow="md" borderWidth="1px" flex="1" borderRadius="md">
-        <HStack justifyContent="space-between">
-          <Box>
-            <Heading fontSize="xl">{hike.hikeName}</Heading>
-            <Text mt={4}>Length (miles): {hike.hikeLength}</Text>
-            <Text mt={4}>Rating: {hike.hikeRating}</Text>
-          </Box>
+    <Box p={5} shadow="md" borderWidth="1px" flex="1" borderRadius="md">
+      <Box display="flex" alignItems="space-between">
+        <Box>
+          <Heading fontSize="xl">{hike.hikeName}</Heading>
+          <Text mt={2}>{hike.hikeLength} miles</Text>
+          {Array(5)
+            .fill("")
+            .map((_, i) => (
+              <StarIcon
+                mt={4}
+                key={i}
+                color={i < hike.hikeRating ? "purple.500" : "gray.300"}
+              />
+            ))}
+        </Box>
+        <Spacer />
+        <VStack>
           <Button
+            isFullWidth="true"
+            colorScheme="yellow"
+            leftIcon={<BsFillPencilFill />}
+            onClick={onOpenReportModal}
+          >
+            Edit
+          </Button>
+          <Button
+            isFullWidth="true"
             colorScheme="red"
             leftIcon={<MdDeleteOutline />}
             onClick={onOpenReportModal}
           >
             Delete
           </Button>
-          <Modal isOpen={isOpenDeleteConfirmModal} onClose={onCloseReportModal}>
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>Delete the hike?</ModalHeader>
-              <ModalCloseButton />
-              <ModalFooter>
-                <Button colorScheme="blue" mr={3} onClick={onCloseReportModal}>
-                  Cancel
-                </Button>
-                <Button colorScheme="red" onClick={confirmDeleteHandler}>
-                  Delete
-                </Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
-        </HStack>
+        </VStack>
       </Box>
-    </HStack>
+
+      <AlertDialog
+        isOpen={isOpenDeleteConfirmModal}
+        onClose={onCloseReportModal}
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+              Delete Hike
+            </AlertDialogHeader>
+            <AlertDialogBody>Are you sure?</AlertDialogBody>
+            <AlertDialogFooter>
+              <Button onClick={onCloseReportModal}>Cancel</Button>
+              <Button colorScheme="red" onClick={confirmDeleteHandler} ml={3}>
+                Delete
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
+    </Box>
   );
 };
 

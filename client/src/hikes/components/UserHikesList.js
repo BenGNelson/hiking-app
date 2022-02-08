@@ -1,16 +1,18 @@
-import { Box } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
 
 import UserHikeItem from "./UserHikeItem";
 
-const HikesList = (props) => {
+const UserHikesList = (props) => {
   const hikes = props.hikes;
   return (
-    <Box>
+    <Grid templateColumns="repeat(2, 1fr)" gap={6}>
       {hikes.map((hike, index) => (
-        <UserHikeItem key={hike._id} hike={hike} onDelete={props.onDeleteHike} />
+        <GridItem w="100%" key={hike._id}>
+          <UserHikeItem hike={hike} onDelete={props.onDeleteHike} />
+        </GridItem>
       ))}
-    </Box>
+    </Grid>
   );
 };
 
-export default HikesList;
+export default UserHikesList;
